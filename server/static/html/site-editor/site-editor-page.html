@@ -1,0 +1,115 @@
+<section id="main-content" class="site-editor-page">
+    <section id="attributes">
+        <div id="attributes-menu">
+            <div id="attributes_plus">plus</div>
+        </div>
+        <ul hx-target="closest ul">
+            <!--#include virtual="/api/blocks/tree?$args" -->
+        </ul>
+        <script>
+            const list = attributes.querySelector("ul");
+            const items = list.querySelectorAll("li");
+
+            attributes_plus.addEventListener("click", e => {
+                attributes.setAttribute("mode", "plus");
+            })
+
+            const item_move_handler = (e, item) => {
+                const closest_li = e.target.closest("li");
+                if (!closest_li || closest_li === item) return;
+                const list_top = list.getBoundingClientRect().top;
+                const center = closest_li?.offsetTop + closest_li?.offsetHeight / 2;
+                const clientY = e.clientY - list_top;
+
+                if (clientY > center) {
+                    closest_li.insertAdjacentElement("afterend", item);
+                } else {
+                    closest_li.insertAdjacentElement("beforebegin", item);
+                }
+            }
+
+            const process_item = item => {
+                const insert_up = item.querySelector(".dropzone.up");
+                const span = item.querySelector("span");
+                const insert_down = item.querySelector(".dropzone.down");
+                const move = item.querySelector("div.move");
+
+                const insert_click_handler = (e, up) => {
+                    e.preventDefault();
+
+                    blocks.reset();
+                    blocks.classList.add("active");
+                    blocks_direction.value = up;
+                    blocks_element_id.value = item.querySelector("[name='element_id']").value;
+                }
+
+                insert_up.addEventListener("click", e => insert_click_handler(e, true));
+                span.addEventListener("click", e => {
+                    if (!attributes.getAttribute("mode")) {
+
+                    }
+
+                    if (attributes.getAttribute("mode") == 'plus') {
+                        insert_click_handler(e, null);
+                    }
+                });
+                insert_down.addEventListener("click", e => insert_click_handler(e, false));
+
+                const local_item_move_handler = e => item_move_handler(e, item);
+                const document_mouseup_handler = () => {
+                    item.classList.remove("moving");
+                    list.removeEventListener("mousemove", local_item_move_handler);
+                    document.removeEventListener("mouseup", document_mouseup_handler);
+                    const next = item.nextElementSibling;
+                    const body = new URLSearchParams();
+
+                    if (next) {
+                        body.append("next", next.getAttribute("element-id"));
+                    }
+
+                    fetch(`/api/blocks/${item.getAttribute("element-id")}/move`, {
+                        method: "PUT",
+                        body: body,
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        }
+                    })
+                    .then(refresh_preview)
+                    .catch(err => console.log(err));
+                }
+
+                move.addEventListener("mousedown", e => {
+                    item.classList.add("moving");
+                    list.addEventListener("mousemove", local_item_move_handler)
+
+                    document.addEventListener("mouseup", document_mouseup_handler);
+                })
+            }
+
+            items.forEach(process_item);
+
+            new MutationObserver((mutations, observer) => {
+                for (const mutation of mutations) {
+                    if (mutation.type === "childList") {
+                        for (const node of mutation.addedNodes) {
+                            process_item(node);
+                        }
+                    }
+                }
+            }).observe(list, {
+                childList: true
+            })
+
+            const refresh_preview = () => page.src = page.src;
+        </script>
+    </section>
+    <form id="properties"></form>
+    <iframe id="page" src="/api/blocks/testpage" frameBorder="0">
+    </iframe>
+    <form id="blocks" hx-post="/api/blocks/add-element" hx-trigger="change"
+        hx-on::after-request="this.classList.remove('active')" hx-swap="none">
+        <input id="blocks_element_id" type="hidden" name="element_id">
+        <input id="blocks_direction" type="hidden" name="direction">
+        <!--#include virtual="/api/blocks/list" -->
+    </form>
+</section>

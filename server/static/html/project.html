@@ -1,0 +1,16 @@
+<section id="main-content" class="projects">
+    <nav>
+        <div class="search-wrapper">
+            <input type="search" autocomplete="off" hx-trigger="input changed delay:500ms" hx-target="#projects-list"
+                hx-select="#projects-list" hx-swap="outerHTML" hx-get="/projects" name="filter">
+            <button></button>
+        </div>
+    </nav>
+    <ul id="projects-list">
+        <div id="project-add" hx-preserve="true" hx-prompt="What's the project's name?" hx-post="/projects"
+            hx-select="#projects-list" hx-target="#projects-list" hx-swap="outerHTML" hx-disinherit="*"></div>
+    </ul>
+    <dialog id="page"><!--#include virtual="/api/projects/$project_id?$args" --></dialog>
+</section>
+
+<!-- hx-post={"/api/projects/"(project_id)"/tms"} hx-include="previous [name='type']" hx-trigger="change"  hx-target="closest ul" hx-select="ul" hx-swap="outerHTML" -->

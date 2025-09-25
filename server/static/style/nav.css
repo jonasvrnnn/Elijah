@@ -1,0 +1,36 @@
+nav#main-nav {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+
+    h1 {
+        font-size: 1.3rem;
+        line-height: 1;
+        margin-right: auto;
+    }
+
+    button {
+        display: flex;
+        align-items: center;
+        background-color: var(--secondary-colour);
+        border: 1px solid var(--primary-colour);
+        color: var(--primary-colour);
+        box-sizing: border-box;
+        height: 100%;
+        line-height: 1.2;
+        cursor: pointer;
+        padding: .5rem;
+        letter-spacing: .1em;
+        font-weight: 400;
+        border-radius: .25rem;
+
+        &:hover {
+            background-color: var(--primary-colour);
+            color: var(--secondary-colour);
+        }
+
+        svg {
+            aspect-ratio: 1;
+        }
+    }
+}

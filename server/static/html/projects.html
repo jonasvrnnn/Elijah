@@ -1,0 +1,154 @@
+<section id="main-content" class="projects">
+    <nav>
+        <div class="search-wrapper">
+            <input type="search" autocomplete="off" hx-trigger="input changed delay:500ms" hx-target="#projects-list"
+                hx-select="#projects-list" hx-swap="outerHTML" hx-get="/projects" name="filter">
+            <button></button>
+        </div>
+    </nav>
+    <ul id="projects-list">
+        <div id="project-add" hx-preserve="true" onclick="project_add_dialog.showModal()">
+            <dialog class="popup" id="project_add_dialog">
+                <button class="cancel" onclick="event.stopPropagation(); project_add_dialog.close()"></button>
+                <form hx-post="/api/projects" autocomplete="off" hx-ext='form-json'
+                    hx-params="name,year,location,status,contract,client,architect,contractor,company,industry">
+                    <h1>Creating <input name="name" required placeholder="The project's name"></h1>
+                    <label><input name="status" type="checkbox"></label>
+                    <button contract>Publiek</button>
+                    <input name="contract" type="hidden" value="publiek">
+                    <!--#config timefmt="%Y" -->
+                    <label><input type="number" placeholder="Year" step="1" min="2000" max="2035"
+                            value="<!--# echo var=" date_local" -->" name="year" onkeydown="event.keyCode != 38 &&
+                        event.keyCode != 40 && event.preventDefault()"></label>
+                    <label><input name="location" type="text" placeholder="Location"></label>
+                    <div class="parties" type="client" style="--icon: url(/project_pagina/client.svg)">
+                        <ul>
+                            <div class="party-add-form">
+                                <input hx-get="/api/parties/search" name="filter" placeholder="Type a party name"
+                                    hx-trigger="focus, input changed delay:500ms" hx-target="next .results"
+                                    hx-include="[name='exclude'].client" hx-params="exclude,filter"
+                                    hx-ext="ignore:form-json">
+                                <div class="results"></div>
+                            </div>
+                        </ul>
+                    </div>
+                    <div class="parties" type="architect" style="--icon: url(/project_pagina/architect.svg)">
+                        <ul>
+                            <div class="party-add-form">
+                                <input hx-get="/api/parties/search" name="filter" placeholder="Type a party name"
+                                    hx-trigger="focus, input changed delay:500ms" hx-target="next .results"
+                                    hx-include="[name='exclude'].architect" hx-params="exclude,filter"
+                                    hx-ext="ignore:form-json">
+                                <div class="results"></div>
+                            </div>
+                        </ul>
+                    </div>
+                    <div class="parties" type="contractor" style="--icon: url(/project_pagina/contractor.svg)">
+                        <ul>
+                            <div class="party-add-form">
+                                <input hx-get="/api/parties/search" name="filter" placeholder="Type a party name"
+                                    hx-trigger="focus, input changed delay:500ms" hx-target="next .results"
+                                    hx-include="[name='exclude'].contractor" hx-params="exclude,filter"
+                                    hx-ext="ignore:form-json">
+                                <div class="results"></div>
+                            </div>
+                        </ul>
+                    </div>
+                    <div class="parties" type="company" style="--icon: url(/project_pagina/group_company.svg)">
+                        <ul>
+                            <div class="party-add-form">
+                                <input hx-get="/api/companies/search" name="filter" placeholder="Type a company name"
+                                    hx-trigger="focus, input changed delay:500ms" hx-target="next .results"
+                                    hx-include="[name='exclude'].company" hx-params="exclude,filter"
+                                    hx-ext="ignore:form-json">
+                                <div class="results"></div>
+                            </div>
+                        </ul>
+                    </div>
+                    <div class="parties" type="industry" style="--icon: url(/project_pagina/industry.svg)">
+                        <ul>
+                            <div class="party-add-form">
+                                <input hx-get="/api/industries/search" name="filter" placeholder="Type an industry name"
+                                    hx-trigger="focus, input changed delay:500ms" hx-target="next .results"
+                                    hx-include="[name='exclude'].industry" hx-params="exclude,filter"
+                                    hx-ext="ignore:form-json">
+                                <div class="results"></div>
+                            </div>
+                        </ul>
+                    </div>
+                    <input type="submit" value="Create new project">
+                    <script>
+                        const parent = document.currentScript.parentNode;
+                        const contract_button = parent.querySelector("button[contract]");
+                        const contract_input = parent.querySelector("[name=contract]");
+                        const parties_element = parent.querySelectorAll(".parties");
+
+                        const contract_map = {
+                            'publiek': 'Publiek',
+                            'privaat': 'Privaat',
+                            'pps': 'PPS'
+                        };
+
+                        contract_button.addEventListener("click", e => {
+                            e.preventDefault();
+
+                            if (document.activeElement !== contract_button) return;
+                            const value = contract_input.value;
+
+                            let next_value;
+
+                            switch (value) {
+                                case 'publiek': next_value = 'privaat'; break;
+                                case 'privaat': next_value = 'pps'; break;
+                                case 'pps': next_value = 'publiek'; break;
+                            }
+
+                            contract_button.innerText = contract_map[next_value];
+                            contract_input.value = next_value;
+                        })
+
+                        for (let party_element of parties_element) {
+                            const results = party_element.querySelector('.results');
+                            const ul = party_element.querySelector("ul");
+                            const search = party_element.querySelector("input");
+
+                            results.addEventListener("click", () => {
+                                let element = event.target;
+                                if (element.name !== 'party' && element.name !== 'company' && element.name !== 'industry') { return; }
+
+                                let value = element.value;
+
+                                const list_item = document.createElement("li");
+                                list_item.innerText = value;
+                                list_item.addEventListener("click", list_item.remove);
+
+                                let type = party_element.getAttribute('type');
+
+                                const input = document.createElement("input");
+                                input.type = 'hidden';
+                                input.name = 'exclude';
+                                input.value = value;
+                                input.classList.add(type)
+
+                                const hidden = document.createElement("input");
+                                hidden.type = 'hidden';
+                                hidden.name = type;
+                                hidden.value = value;
+
+                                list_item.appendChild(input);
+                                list_item.appendChild(hidden);
+                                ul.prepend(list_item);
+
+                                search.value = '';
+
+                                results.innerHTML = '';
+                            })
+                        }
+                    </script>
+                </form>
+            </dialog>
+        </div>
+        <!--#include virtual="/api/projects?$args" -->
+    </ul>
+    <dialog id="page"></dialog>
+</section>

@@ -1,0 +1,35 @@
+
+// For format details, see https://aka.ms/devcontainer.json
+{
+  "name": "Rust Dev Container",
+  
+  // Gebruik een officiële Rust image als basis
+  "image": "rust:1.79-bullseye",
+  
+  // Features om extra tools te installeren (kan later uitbreiden)
+  "features": {},
+  
+  // Gebruik 'forwardPorts' om poorten in de container beschikbaar te maken op je PC
+  "forwardPorts": [],
+  
+  // Command dat uitgevoerd wordt na het creëren van de container
+  "postCreateCommand": "rustup update && cargo fetch",
+  
+  // Configureer VS Code extensies die automatisch geïnstalleerd worden
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "rust-lang.rust-analyzer",
+        "serayuzgur.crates",
+        "eamodio.gitlens",
+        "bungcip.better-toml",
+        "serayuzgur.cargo-toml-snippets",
+        "usernamehw.errorlens",
+        "k--kato.intellij-idea-keybindings"
+      ]
+    }
+  },
+  
+  // Optioneel: start als root gebruiker
+  "remoteUser": "root"
+}

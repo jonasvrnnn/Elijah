@@ -1,0 +1,85 @@
+#core-numbers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+
+    #add-core-number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        min-height: 0;
+        padding: 0;
+        background: none;
+        color: var(--primary-colour);
+        height: 100%;
+        cursor: pointer;
+        min-height: 7.125rem;
+        opacity: .5;
+        transition: opacity .3s ease;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        svg {
+            height: 3.5rem;
+        }
+    }
+
+    .core-number {
+        position: relative;
+        min-width: 0;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            text-align: center;
+
+            .core-number-number {
+                color: var(--red);
+                font-size: 2rem;
+                font-weight: 550;
+                text-align: center;
+                border: none;
+                background: none;
+                width: 100%;
+            }
+
+            .core-number-title {
+                font-size: 1.1rem;
+                font-weight: 400;
+                text-align: center;
+                font-family: inherit;
+                resize: none;
+                border: none;
+                background: none;
+                width: 100%;
+            }
+        }
+
+        .core-number-delete {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 1.5rem;
+            aspect-ratio: 1;
+            border-radius: 100%;
+            background-color: darkred;
+            border: 0;
+            cursor: pointer;
+            display: none;
+        }
+
+        &:hover {
+            .core-number-delete {
+                display: block;
+            }
+        }
+    }
+}

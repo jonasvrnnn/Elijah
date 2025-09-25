@@ -1,0 +1,4 @@
+.popup {
+    border: 1px solid var(--primary-colour);
+    background: var(--secondary-colour);
+}

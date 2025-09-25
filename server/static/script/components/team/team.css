@@ -1,0 +1,165 @@
+:host {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    color: white;
+    width: 65rem;
+    margin: auto;
+    gap: 1rem;
+
+    @media screen and (max-width: 1280px) {
+        grid-template-columns: repeat(2, 1fr);  
+        width: 45rem;  
+    }
+
+    @media screen and (max-width: 767px) {
+        grid-template-columns: repeat(1, 1fr);  
+        width: 25rem;  
+    }
+
+    .person {
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        border-radius: 0.625rem;
+        aspect-ratio: 4/5;
+        overflow: hidden;
+        z-index: 0;
+
+        &:has(.overlay:empty) {
+            .overlay, .buttons {
+                display: none;
+            }
+        }
+        
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: linear-gradient(0deg, #000000bf 0%, transparent 100%); 
+            height: 7.5rem;
+            z-index: -1;
+        }
+
+        .bottom {
+            position: absolute;
+            bottom: .5rem;
+            left: .5rem;
+            right: .5rem;
+
+            .name {
+                font-size: 1.5rem;
+                margin-bottom: .5rem;
+            }
+
+            .title {
+                font-size: 1rem;
+            }
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            background-color: rgba(0,0,0,.5);
+            backdrop-filter: blur(0px);
+            pointer-events: none;
+            transition: opacity .3s ease, backdrop-filter .3s ease;
+            box-sizing: border-box;
+            padding: 1rem;
+            padding-top: 4rem;
+            text-align: center;
+            font-size: .875rem;
+            word-break: normal;
+            overflow-y: auto;
+        }
+
+        .buttons {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            gap: .5rem;
+            right: .5rem;
+            top: .5rem;
+            height: 3rem;
+            aspect-ratio: 1;
+            z-index: 2;
+
+            > a,> div {
+                position: absolute;
+                box-sizing: border-box;
+                color: var(--grey);
+                background-color: white;
+                border-radius: 5rem;
+                aspect-ratio: 1 / 1;
+                cursor: pointer;
+            }
+
+            >a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 80%;
+                padding: .5rem;
+                transition: right .3s ease;
+                transform: translateX(50%);
+                right: 50%;
+            }
+
+            .info {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                padding: .85rem;
+                z-index: 1;
+
+                svg {
+                    height: 100%;
+                }
+
+                .close {
+                    display: none;
+                }
+            }
+        }
+
+        &[active] {
+            .overlay {
+                opacity: 1;
+                backdrop-filter: blur(10px);
+                pointer-events: all;
+            }
+
+            .buttons {
+                >a {
+                    right: 0;
+
+                    &:nth-of-type(1) {
+                        right: 4.75rem;
+                    }
+    
+                    &:nth-of-type(2) {
+                        right: 7.75rem;
+                    }
+    
+                    &:nth-of-type(3) {
+                        right: 10.75rem;
+                    }
+                }
+
+                .info {
+                    svg {
+                        display: none;
+                    }
+                    
+                    .close {
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,39 @@
+.add-content-entry {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .75rem;
+    box-sizing: border-box;
+    background: color-mix(in srgb, var(--secondary-colour) 90%, transparent);
+    color: var(--primary-colour);
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    height: 2.875rem;
+    aspect-ratio: 1;
+    flex-shrink: 0;
+    border: 2px solid transparent;
+    border-radius: .25rem;
+
+    &::after {
+        display: inline-block;
+        content: '';
+        background-color: var(--primary-colour);
+        height: 100%;
+        width: 100%;
+        mask-image: url(/plus.svg);
+        opacity: .5;
+        transition: opacity .3s ease;
+    }
+
+    &:hover::after {
+        opacity: 1;
+    }
+}
+
+&:first-child {
+    .add-content-entry.first {
+        display: block;
+    }
+}

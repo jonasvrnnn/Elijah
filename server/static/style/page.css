@@ -1,0 +1,76 @@
+@import url('save-changes.css');
+@import url('add-content-entry.css');
+@import url('core-numbers.css');
+@import url('page-bottom-settings.css');
+
+#page {
+    position: fixed;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    inset: 1.5rem;
+    background-color: white;
+    /* border: .5rem solid var(--primary-colour); */
+    border: none;
+    outline: none;
+    padding: 0;
+    border-radius: .25rem;
+    overflow: hidden;
+
+    &::after {
+        content: '';
+        position: absolute;
+        pointer-events: none;
+        inset: 0;
+        left: 0;
+        top: 0;
+        z-index: 20;
+        box-shadow: inset 0px 0px 50px black;
+    }
+
+    #bynder_container {
+        position: sticky;
+        inset: 0;
+        height: 100%;
+        z-index: 40;
+
+        &:empty {
+            pointer-events: none;
+            display: none;
+        }
+    }
+
+    #page-content {
+        font-family: Be Vietnam Pro;
+        height: 100%;
+        width: 100%;
+        overflow: auto;
+    }
+
+    > .buttons {
+        display: flex;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        height: 50%;
+        gap: .25rem;
+        background-color: #262626;
+        z-index: 50;
+        height: 2rem;
+
+        button {
+            aspect-ratio: 1;
+            padding: 0;
+            box-sizing: border-box;
+            border: none;
+            font-size: 2rem;
+            line-height: 1;
+        }
+    }
+
+    .party-list {
+        position: absolute;
+        width: 50%;
+
+    }
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <title>Projecten</title>
+    <!--#include virtual="/head.html" -->
+    <link rel="stylesheet" href="/projecten.css" />
+    <script src="/components/angled.js"></script>
+    <script src="/components/carousel/carousel.js"></script>
+    <!--#include virtual="/gtm.html" -->
+</head>
+
+<body hx-ext="head-support" hx-boost="true" >
+    <!--#include virtual="/nav.html" -->
+    <!--#include virtual="/cookie-banner.html" -->
+
+    <angled-element>
+        <section class="header">
+            <carousel-element>
+                <!--#include virtual="/api/projecten/carousel" -->
+            </carousel-element>
+
+            <form hx-get="/projecten-filter" hx-swap="outerHTML" hx-trigger="load"></form>
+        </section>
+    </angled-element>
+
+    <div class="container-0">
+        <div id="projecten">
+            <!--#include virtual="/api/projecten?${args}" -->
+        </div>
+    </div>
+
+    <!--#include virtual="/map.html" -->
+
+    <!--#include virtual="/footer.html" -->
+</body>
+
+</html>

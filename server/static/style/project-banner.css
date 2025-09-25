@@ -1,0 +1,102 @@
+#project-banner {
+    position: relative;
+    aspect-ratio: 3/1;
+    backdrop-filter: blur(5px);
+    border-radius: .625rem;
+    background-color: color-mix(in srgb, var(--secondary-colour) 90%, transparent);
+    box-sizing: border-box;
+    overflow: hidden;
+
+    .overlay {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, .85);
+        backdrop-filter: blur(5px);
+        z-index: 1;
+        border-radius: .625rem;
+        opacity: 0;
+        transition: opacity .3s ease;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        button {
+            background: none;
+            color: var(--primary-colour);
+            border: 1px solid currentColor;
+            padding: .5rem 1.5rem;
+            font-size: 1.2rem;
+
+            &:hover {
+                background: var(--primary-colour);
+                color: var(--secondary-colour);
+                cursor: pointer;
+            }
+        }
+    }
+
+    img {
+        height: 100%;
+        width: 100%;
+        border: none;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    > button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        background-color: var(--secondary-colour);
+        border-radius: .25rem;
+        width: 2.5rem;
+        aspect-ratio: 1;
+        border: none;
+        padding: 0;
+        opacity: 0;
+        transition: opacity .3s ease;
+        cursor: pointer;
+        margin-top: var(--angled-padding-top);
+
+        &::after {
+            content: '';
+            background-color: var(--primary-colour);
+            height: calc(100% - 1rem);
+            aspect-ratio: 1;
+            opacity: .5;
+            transition: opacity .3s ease;
+        }
+
+        &:hover::after {
+            opacity: 1;
+        }
+
+        &.edit {
+            inset: .5rem;
+
+            &::after {
+                mask-image: url(/edit.svg);
+            }
+        }
+
+        &.clear {
+            inset: .5rem;
+            left: auto;
+
+            &::after {
+                mask-image: url(/clear.svg);
+            }
+        }
+    }
+
+    &:hover>button {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/tms.css">
+    <link rel="stylesheet" href="/control-menu.css">
+    <!--#include virtual="/head/$section.html" -->
+    <script src="/angled.js"></script>
+    <script src="/htmx.js"></script>
+    <script src="/prompt.js"></script>
+    <script src="/bynder.js"></script>
+    <script src="/open_image.js"></script>
+    <script src="/sound-effect.js"></script>
+    <script src="/header-photo-update.js"></script>
+    <script src="/htmx-head.js"></script>
+    <script src="/autosize.js"></script>
+    <script src="/text-editor.js"></script>
+    <script src="/content-entry-update.js"></script>
+    <script src="/components/textarea-autosize.js"></script>
+    <script src="/control-menu.js"></script>
+    <script src="/components/carousel/carousel.js"></script>
+    <script src="/components/lightbox.js" type="module"></script>
+    <script src="https://unpkg.com/tiny-editor/dist/bundle.js" defer></script>
+    <script src="/htmx-form-json.js"></script>
+
+    <script>
+        document.addEventListener('htmx:responseError', evt => {
+            const xhr = evt.detail.xhr;
+
+            if (xhr.status == 500) {
+                const error_element = document.createElement("div");
+                error_element.innerText = evt.detail.xhr.response;
+                errors.insertAdjacentElement("beforeend", error_element);
+                error_element.addEventListener("click", error_element.remove);
+            }
+        });
+
+    </script>
+</head>
+
+<body hx-boost>
+    <nav id="main-nav">
+        <h1>GROEP VAN ROEY - CONTENT EDITOR</h1>
+        <button class="button-0" hx-delete="/api/auth/logout">LOG OUT</button>
+    </nav>
+
+    <ul id="collections" hx-target="#main-content" hx-swap="outerHTML" hx-push-url="true" hx-select="#main-content">
+        <li hx-get="/projects" style="--icon: url(/projects.svg);">Projects</li>
+        <li hx-get="/users" style="--icon: url(/users.svg);">Users</li>
+        <li hx-get="/forms" style="--icon: url(/form.svg);">Forms</li>
+        <li hx-get="/site-editor" style="--icon: url(/form.svg);">Site editor</li>
+    </ul>
+
+    <section id="errors"></section>
+    <!--#include virtual="/$section.html?$args" -->
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+<section id="main-content" class="users">
+    <nav>
+        <div class="item">
+            <button>Add user</button>
+            <form id="add-user-form" hx-post="/api/auth/users" hx-target="#main-content.users > ul" hx-swap="afterbegin">
+                <input name="first_name" placeholder="First name">
+                <input name="last_name" placeholder="Last name">
+                <input name="email" placeholder="Email">
+                <input name="password" placeholder="Password">
+                <select name="role">
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                </select>
+                <input type="submit" value="Add">
+            </form>
+        </div>
+    </nav>
+    <ul>
+        <!--#include virtual="/api/auth/users?$args" -->
+    </ul>
+</section>

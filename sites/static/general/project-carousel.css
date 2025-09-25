@@ -1,0 +1,97 @@
+.project-carousel {
+    position: relative;
+    --index: 0;
+    overflow: hidden;
+
+    >.content {
+        position: relative;
+        display: grid;
+        grid-auto-columns: 15rem;
+        gap: 2rem;
+        text-align: center;
+        left: calc(var(--index) * (-15rem - 2rem));
+        transition: left .3s ease;
+
+        >.item {
+            display: grid;
+            grid-template-rows: auto auto;
+            gap: 1rem;
+            grid-row: 1;
+
+            >img {
+                width: 100%;
+                min-width: 0;
+                aspect-ratio: 7 / 5;
+                object-fit: cover;
+            }
+
+            >span {
+                font-size: 1.4rem;
+            }
+        }
+    }
+
+    >button {
+        display: block;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        opacity: 1;
+        transition: opacity .3s ease;
+        width: 2.75rem;
+        aspect-ratio: 1;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        border: none;
+        border-radius: 5rem;
+        padding: .875rem;
+        box-sizing: border-box;
+        background: white;
+        cursor: pointer;
+        border: 2px solid var(--red);
+        touch-action: pan-x;
+
+        &::after {
+            display: block;
+            content: '';
+            mask-image: url(/carousel-arrow.svg);
+            background: var(--red);
+            width: 100%;
+            height: 100%;
+        }
+
+        &[hidden] {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        &[type=previous] {
+            left: 0;
+            transform: scaleX(-100%) translateY(-50%);
+        }
+
+        &[type=next] {
+            right: 0;
+        }
+
+        &:hover {
+            background-color: var(--red);
+
+            &::after {
+                background: white;
+            }
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        >.content {
+            grid-auto-columns: 100%;
+            left: calc(var(--index) * (-100% - 2rem));
+        }
+
+        >button {
+            width: 3.2rem;
+        }
+    }
+}

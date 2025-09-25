@@ -1,0 +1,153 @@
+.main-content {
+    position: relative;
+    background-color: rgba(0, 0, 0, .25);
+    color: white;
+
+    &:hover {
+        .project>.image-buttons {
+            opacity: 1;
+        }
+    }
+
+    .project {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        z-index: 1;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        transform: translate(-50%, -50%);
+
+        .project-name {
+            font-size: 6.8rem;
+            font-weight: 600;
+            line-height: .875;
+            text-shadow: black 0px 0 20px;
+            background: none;
+            border: none;
+            resize: none;
+            color: white;
+            text-align: center;
+            outline: none;
+            width: 100%;
+            padding: 1rem 0;
+            font-family: inherit;
+        }
+
+        div.image-buttons {
+            display: flex;
+            gap: .25rem;
+            height: 2.875rem;
+            opacity: 0;
+            transition: opacity .3s ease;
+            position: relative;
+            background-color: color-mix(in srgb, var(--secondary-colour) 90%, transparent);
+            box-sizing: border-box;
+            border-radius: .25rem;
+            backdrop-filter: blur(5px);
+            padding: .25rem;
+
+            .overlay {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+                align-items: center;
+                justify-content: center;
+                content: '';
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, .85);
+                opacity: 0;
+                transition: opacity .3s ease, backdrop-filter .3s ease;
+                text-align: center;
+                color: white;
+                font-size: 1.2rem;
+                font-weight: 500;
+                z-index: 16;
+                padding: 1rem;
+                box-sizing: border-box;
+                border-radius: .625rem;
+                backdrop-filter: blur(5px);
+
+                &:hover {
+                    opacity: 1;
+                }
+
+                button {
+                    display: flex;
+                    font-size: 1.2rem;
+                    border-radius: 0;
+                    color: var(--primary-colour);
+                    font-weight: 500;
+                    padding: .5rem 1.5rem;
+                    border: 1px solid var(--primary-colour);
+                    background-color: var(--secondary-colour);
+                    cursor: pointer;
+
+                    &:hover {
+                        color: var(--secondary-colour);
+                        background-color: var(--primary-colour);
+                    }
+                }
+            }
+
+            .edit,
+            .delete,
+            .customise {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: .5rem;
+                box-sizing: border-box;
+                background: none;
+                color: var(--primary-colour);
+                border: none;
+                cursor: pointer;
+                font-size: 1rem;
+                font-weight: 700;
+                height: 100%;
+                flex-shrink: 0;
+                opacity: .5;
+                transition: opacity .3s ease;
+                border-radius: .25rem;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+
+            .edit,
+            .delete {
+                aspect-ratio: 1;
+            }
+        }
+    }
+
+    video,
+    img.background {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        z-index: -1;
+    }
+}
+
+h1:not(.project) {
+    bottom: max(19rem, 19vh);
+    left: 12.5%;
+    margin: 0;
+
+    @media screen and (max-width: 767px) {
+        & {
+            text-align: center;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+}

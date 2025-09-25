@@ -1,0 +1,81 @@
+<section id="main-content" class="site-editor-pages">
+    <nav>
+        <button id="create_new_page">Create Page</button>
+    </nav>
+    <ul id="page_list" mode="" hx-push-url="false">
+        <li class="home">Home</li>
+        <!--# include virtual="/api/blocks/pages?$args" -->
+        <script>
+            (() => {
+                const parent = document.currentScript.parentNode;
+                const lists = parent.querySelectorAll("ul");
+                let current_ul;
+                let mode = () => parent.getAttribute("mode");
+
+                const set_mode = m => {
+                    page_list.setAttribute("mode", m);
+                }
+
+                create_new_page.addEventListener("click", () => {
+                    if (mode() !== "plus") {
+                        page_list.toggleAttribute('pages-disabled', true);
+                        set_mode("plus");
+                        create_new_page.innerText = 'Cancel';
+                    }
+                    else {
+                        page_list.toggleAttribute('pages-disabled', false);
+                        page_list.removeAttribute("mode");
+                        create_new_page.innerText = 'Create Page';
+                    }
+                });
+
+                const folders = parent.querySelectorAll("li.folder>details>summary");
+
+                const get_path = (summary, path) => {
+                    let local_path = summary.innerText.trim();
+
+                    const previous = summary.parentNode.parentNode.closest("details")?.querySelector("summary");
+
+                    path = path ? `/${path}` : '';
+
+                    if (previous) {
+                        return get_path(previous, `${local_path}${path}`);
+                    } else {
+                        return `${local_path}${path}`;
+                    }
+                }
+
+                folders.forEach(folder => {
+                    const add = folder.querySelector("button.add");
+                    add.addEventListener("click", e => {
+                        e.preventDefault();
+
+                        folders.forEach(folder => {
+                            folder.classList.remove("add");
+                        })
+
+
+                        folder.classList.add("add");
+                        page_list.toggleAttribute("folders-text-disabled", true);
+                        const form_new = folder.querySelector("form.new");
+                        const input = form_new.querySelector("input");
+                        input.focus();
+
+
+                        /* folder.addEventListener("blur", () => {
+                            folder.classList.remove("add");
+                        }) */
+
+                        input.addEventListener("blur", () => {
+                            page_list.toggleAttribute("folders-text-disabled", false);
+                        })
+                    })
+
+                    folder.parentNode.addEventListener("click", e => {
+                        if (e.target.tagName !== "SPAN") e.preventDefault();
+                    })
+                })
+            })()
+        </script>
+    </ul>
+</section>

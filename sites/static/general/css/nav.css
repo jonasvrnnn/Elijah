@@ -1,0 +1,199 @@
+#nav {
+    display: flex;
+
+    &:host([top])::before {
+        content: '';
+        height: 90px;
+    }
+
+    .nav-content {
+        position: fixed;
+        top: 0;
+        display: grid;
+        grid-template-rows: 90px auto 1fr;
+        width: 100%;
+        height: 100vh;
+        z-index: 10;
+        pointer-events: none;
+
+        .top {
+            background-color: #00000080;
+            display: flex;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            box-sizing: border-box;
+            padding: 20px 5rem;
+            width: 100%;
+            justify-content: space-between;
+            color: white;
+            pointer-events: all;
+
+            .logo {
+                height: 100%;
+
+                img {
+                    height: 100%;
+                    pointer-events: none;
+                }
+            }
+
+            .top-items {
+                height: 2rem;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+
+                .jobs {
+                    font-size: 0.875rem;
+                    color: inherit;
+                    background-color: var(--red);
+                    box-sizing: border-box;
+                    padding: 0 1.5rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 1rem;
+                    border: 1px solid white;
+                    height: 100%;
+                    text-decoration: none;
+                }
+
+                .hamburger,
+                .search {
+                    aspect-ratio: 1;
+                    height: 75%;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        >.search {
+            display: none;
+            flex-direction: column;
+            align-items: normal;
+            width: 250px;
+            background-color: white;
+            justify-self: right;
+            border-radius: .625rem;
+            margin: 1rem 5rem 1rem 1rem;
+            gap: .5rem;
+            box-sizing: border-box;
+            padding: .5rem;
+
+            .results {
+                display: flex;
+                flex-direction: column;
+                gap: .5rem;
+
+                .project,
+                .page {
+                    padding: 1rem;
+                    border: 1px solid;
+                    border-radius: .625rem;
+                }
+
+                .page {
+                    border-color: var(--grey);
+                }
+
+                .project {
+                    border-color: var(--red);
+                }
+            }
+        }
+
+        .bottom {
+            backdrop-filter: blur(5px);
+            height: 0%;
+            transition: height .3s ease;
+            overflow: hidden;
+
+            &[active] {
+                height: 100%;
+                pointer-events: all;
+            }
+
+            .bottom-content {
+                display: grid;
+                grid-auto-flow: column;
+                grid-auto-columns: 1fr;
+
+                .left {
+                    display: flex;
+                    flex-direction: column;
+                    background-color: white;
+                    padding: 3.5rem max(7.5rem, calc(50vw - calc(var(--max-content-width) / 2)));
+                    font-size: 1.75rem;
+                    font-weight: 600;
+                    line-height: 1.2;
+                    gap: .5rem;
+
+                    a {
+                        opacity: .5;
+                        transition: opacity .3s ease;
+                        color: var(--red);
+                        cursor: pointer;
+
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+                }
+
+                .right {
+                    background-color: var(--off-white);
+                    display: flex;
+                    flex-direction: column;
+                    padding: 3.5rem max(7.5rem, calc(50vw - calc(var(--max-content-width) / 2)));
+                    gap: 1rem;
+                    color: var(--red);
+
+                    h1 {
+                        font-size: 2rem;
+                        font-weight: 400;
+                        line-height: 1.2;
+                        margin: 0;
+                    }
+
+                    .companies {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 2rem;
+                        flex-flow: column wrap;
+                        align-items: flex-start;
+                        height: 21rem;
+
+                        >div {
+                            display: flex;
+                            flex-direction: column;
+                            gap: .15rem;
+
+                            h2 {
+                                font-size: 1rem;
+                                color: var(--grey);
+                                line-height: 1.2;
+                                margin: 0;
+                            }
+
+                            a {
+                                font-size: 1.2rem;
+                                line-height: 1;
+                                font-weight: 600;
+                            }
+                        }
+                    }
+                }
+
+                @media screen and (min-width: 1440px) {
+                    .left {
+                        padding-right: 3.5rem;
+                    }
+
+                    .right {
+                        padding-left: 3.5rem;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,66 @@
+{
+    "Alfa Group": {
+        "form_address": "info@tophat.be",
+        "domains": [
+            "alfa.localhost"
+        ]
+    },
+    "Architon": {
+        "form_address": "info@tophat.be",
+        "domains": [
+            "architon.localhost"
+        ]
+    },
+    "Artem": {
+        "form_address": "info@tophat.be",
+        "domains": [
+            "artem.localhost"
+        ]
+    },
+    "Corporate": {
+        "form_address": "info@tophat.be",
+        "domains": [
+            "websites.localhost",
+            "corporate.localhost"
+        ]
+    },
+    "IFTech": {
+        "form_address": "info@tophat.be",
+        "domains": [
+            "iftech.localhost"
+        ]
+    },
+    "Algemene Bouw Maes": {
+        "form_address": "info@tophat.be",
+        "domains": [
+            "maes.localhost",
+            "test.admin.tophat.be",
+            "192.168.50.108"
+        ]
+    },
+    "Van Roey Services": {
+        "form_address": "info@tophat.be",
+        "domains": [
+            "services.localhost"
+        ]
+    },
+    "Staalbeton": {
+        "form_address": "info@tophat.be",
+        "domains": [
+            "staalbeton.localhost"
+        ]
+    },
+    "vanhout.pro": {
+        "form_address": "info@tophat.be",
+        "domains": [
+            "vanhout.localhost",
+            "test.localhost"
+        ]
+    },
+    "Van Roey": {
+        "form_address": "info@tophat.be",
+        "domains": [
+            "vanroey.localhost"
+        ]
+    }
+}

@@ -1,0 +1,31 @@
+h1 {
+    position: absolute;
+    font-size: 6.8rem;
+    font-weight: 600;
+    line-height: .875;
+    text-shadow: black 0px 0 20px;
+    color: white;
+    line-break: normal;
+    height: fit-content;
+    bottom: max(19rem, 19vh);
+    left: 12.5%;
+    right: 12.5%;
+    hyphens: none;
+
+    &.project {
+        top: 50%;
+        transform: translateY(calc(-50% - var(--angled-padding-bottom) / 2));
+        text-align: center;
+    }
+
+    @media screen and (max-width: 900px) {
+        & {
+            font-size: 4rem;
+            text-align: center;
+            top: 50%;
+            left: 1rem;
+            right: 1rem;
+            transform: translateY(calc(-50% - var(--angled-padding-bottom) / 2));
+        }
+    }
+}

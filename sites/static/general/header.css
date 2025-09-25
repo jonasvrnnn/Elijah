@@ -1,0 +1,25 @@
+angled-element:has(.main-content), .header {
+    position: relative;
+    display: block;
+    height: 75vh;
+    min-height: 750px;
+    background-position: center;
+    background-size: cover;
+
+    carousel-element {
+        &::part(controls) {
+            position: absolute;
+            bottom: calc(var(--angled-padding-bottom) + 1.5rem);
+        }
+
+        &::part(pills) {
+            background: none;
+            border: none;
+            color: white;
+        }
+
+        &::part(playpause) {
+            background: none;
+        }
+    }
+}

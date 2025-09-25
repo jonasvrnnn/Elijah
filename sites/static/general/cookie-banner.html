@@ -1,0 +1,17 @@
+<section id="cookies">
+    <section id="cookie-banner">
+        <p>Door op 'Alle cookies accepteren' te klikken, stemt u in met het opslaan van cookies op uw apparaat om de
+            site-navigatie te verbeteren, het gebruik van de site te analyseren en bij te dragen aan onze
+            marketinginspanningen. Bekijk ons privacybeleid voor meer informatie.</p>
+        <a onclick="cookies.setAttribute('state', 'preferences')">Voorkeuren</a>
+        <button class="reject" hx-post="/api/cookies" hx-vals='{"analytics": false}' hx-swap="none"
+            onclick="cookies.setAttribute('state', 'button')" hx-target="#cookies">Weiger</button>
+        <button class="accept" hx-post="/api/cookies" hx-vals='{"analytics": true}' hx-swap="none">Sta toe</button>
+    </section>
+
+    <button id="cookie-button" onclick="cookies.setAttribute('state', 'preferences')"></button>
+
+    <form id="cookie-preferences" hx-boost="false" hx-post="/api/cookies" hx-swap="none" hx-on::after-request="cookies.setAttribute('state', 'button')">
+        <!--#include virtual="/api/cookies" -->
+    </form>
+</section>

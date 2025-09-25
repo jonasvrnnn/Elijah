@@ -1,0 +1,48 @@
+@import "/titillium.css";
+
+:root {
+    --primary-colour: #d3cdc1;
+    --secondary-colour: #262626;
+}
+
+html {
+    background-color: var(--secondary-colour);
+    color: var(--primary-colour);
+    font-family: TitilliumWeb;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    input {
+        background: none;
+        border: 1px solid var(--primary-colour);
+        color: var(--primary-colour);
+        padding: .25rem;
+        login
+        &[type=submit] {
+            cursor: pointer;
+
+            &:hover {
+                background-color: var(--primary-colour);
+                color: var(--secondary-colour);
+            }
+        }
+    }
+}
+
+h1 {
+    margin: 0;
+    font-variation-settings: "wght" 350;
+}

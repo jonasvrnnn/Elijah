@@ -1,0 +1,13 @@
+.main-0 {
+    position: relative;
+    height: 75vh;
+    min-height: 750px;
+    background-position: center;
+    background-size: cover;
+    background-color: var(--grey);
+
+    .copyright {
+        margin-bottom: calc(1rem + var(--angled-padding-bottom));
+    }
+}
+

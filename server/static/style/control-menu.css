@@ -1,0 +1,107 @@
+    control-menu {
+        display: flex;
+        position: absolute;
+        height: 2.5rem;
+        gap: .25rem;
+        background-color: var(--primary-colour);
+        bottom: 2.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: .5rem;
+        box-shadow: black 0 0 5px;
+        box-sizing: border-box;
+        padding: .25rem;
+        z-index: 1;
+
+        button {
+            all: unset;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-colour);
+            aspect-ratio: 1;
+            height: 100%;
+            border-radius: .5rem;
+            cursor: pointer;
+
+            &[active] {
+                background-color: var(--secondary-colour);
+            }
+        }
+
+        &[menu='projects-add'] {
+            #projects-add {
+                opacity: 1;
+                pointer-events: all;
+            }
+        }
+
+        &[menu='projects-filter'] {
+            #projects-filter {
+                opacity: 1;
+                pointer-events: all;
+            }
+        }
+
+        .content {
+            position: absolute;
+            height: 2rem;
+            border-radius: .5rem;
+            bottom: calc(100% + .5rem);
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: black 0 0 5px;
+            box-sizing: border-box;
+            padding: .25rem;
+            width: 50%;
+            min-width: 250px;
+            transition: opacity .3s ease;
+            pointer-events: none;
+            opacity: 0;
+
+            &[active] {
+                pointer-events: all;
+                opacity: 1;
+            }
+        }
+
+        #projects-add {
+            display: flex;
+            gap: .5rem;
+            background-color: var(--primary-colour);
+
+
+            input {
+                background: none;
+                outline: none;
+                border: none;
+            }
+
+            input[type="text"] {
+                flex: 1;
+            }
+
+            input[type="submit"] {
+                border: 1px solid var(--secondary-colour);
+                border-radius: .5rem;
+                cursor: pointer;
+                aspect-ratio: 1;
+            }
+        }
+
+        #projects-filter {
+            display: flex;
+            gap: .5rem;
+            background-color: var(--primary-colour);
+
+            input {
+                background: none;
+                outline: none;
+                border: none;
+            }
+
+            input[type="text"] {
+                flex: 1;
+            }
+        }
+    }

@@ -1,0 +1,16 @@
+<section id="main-content" class="forms">
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Sender</th>
+                <th>Recipient</th>
+                <th class="recaptcha"></th>
+            </tr>
+        </thead>
+        <tbody hx-target="#form-message">
+            <!--#include virtual="/api/forms/submissions" -->
+        </tbody>
+    </table>
+    <section id="form-message"></section>
+</section>

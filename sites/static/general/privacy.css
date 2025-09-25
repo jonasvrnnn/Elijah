@@ -1,0 +1,26 @@
+.content-0.policy {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+    font-size: 1.1rem;
+    font-weight: 200;
+    color: #9e9e9e;
+    line-height: 1.78rem;
+
+    a {
+        display: inline;
+    }
+
+    h1, h2 {
+        all: unset;
+        display: block;
+    }
+
+    h1 {
+        font-weight: bold;
+    }
+
+    h2 {
+        font-weight: 500;
+    }
+}
